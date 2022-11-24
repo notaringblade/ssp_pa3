@@ -17,5 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', 'RegistrationController@create');
+Route::any('register', function(){
+    return view('register');
+});
+
+// Route::get('/register', 'RegistrationController@create');
 // Route::post('register', 'RegistrationController@store');

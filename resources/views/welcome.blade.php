@@ -23,7 +23,7 @@
     </head>
     <body class="antialiased">
             <div>
-                <a href="/register">yep</a>
+                <a href="register">yep</a>
             </div>
     </body>
 </html>
