@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CustomAuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::any('register', function(){
-    return view('register');
-});
+Route::get('/register', [CustomAuthController::class, 'register']);
+Route::get('/login', [CustomAuthController::class, 'login']);
+Route::post('/register-script', [CustomAuthController::class, 'registerScript'])->name("register-script");
+Route::post('/login-script', [CustomAuthController::class, 'loginScript'])->name("login-script");
+Route::get('/dashboard', [CustomAuthController::class, 'dashboard']);
+Route::get('/mo_dashboard', [CustomAuthController::class, 'mo_dashboard']);
+
+
 
 // Route::get('/register', 'RegistrationController@create');
 // Route::post('register', 'RegistrationController@store');

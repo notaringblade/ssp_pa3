@@ -17,8 +17,9 @@ body{
 }
 div{
     /* margin-; */
-    /* margin: auto; */
-    margin-top: 60px;
+    margin: auto;
+    /* margin-top: 20px; */
+    color: white;
     /* width: 100%; */
 }
 .form-structure .input-fields{
@@ -43,7 +44,7 @@ button{
     height: 40px;
     background-color: transparent;
     color: white;
-    margin-top: 60px;
+    margin-top: 100px;
     margin-bottom: 15px;
     align-self: center;
     border-radius: 20px;
@@ -51,4 +52,18 @@ button{
     border: 2.5px solid white;
     /* margin: auto; */
     margin-left: 550px;
+}
+span{
+    color: white;
+}
+a{
+    margin-left: 650px;
+    /* margin-top: 20px; */
+    color: lightblue;
+}
+h2{
+    margin-top: 20px;
+    margin-left: 630px;
+    margin-bottom: 40px;
+    color: white;
 }
