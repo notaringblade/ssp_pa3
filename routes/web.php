@@ -18,12 +18,19 @@ Route::get('/', function () {
 });
 
 Route::get('/register', [CustomAuthController::class, 'register']);
-Route::get('/login', [CustomAuthController::class, 'login']);
 Route::post('/register-script', [CustomAuthController::class, 'registerScript'])->name("register-script");
+
+Route::get('/login', [CustomAuthController::class, 'login']);
 Route::post('/login-script', [CustomAuthController::class, 'loginScript'])->name("login-script");
+
 Route::get('/dashboard', [CustomAuthController::class, 'dashboard']);
 Route::get('/mo_dashboard', [CustomAuthController::class, 'mo_dashboard']);
+Route::get('/doctor_view', [CustomAuthController::class, 'doctor_view']);
+Route::get('update_doctors/{id}', [CustomAuthController::class, 'updateDoctors']);
 
+Route::post('/admin-update-script', [CustomAuthController::class, 'adminUpdateScript'])->name("admin-update-script");
+Route::post('/update-script', [CustomAuthController::class, 'updateScript'])->name("update-script");
+Route::get('delete/{id}', [CustomAuthController::class, 'delete']);
 
 
 // Route::get('/register', 'RegistrationController@create');

@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{{ URL::asset('css/register.css') }}">
+    <script src="{{ asset('js/app.js') }}" defer></script>
+   
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div class="form-structure">
@@ -48,16 +52,23 @@
             <div >
                 <select name="role" class="input-fields">
                     <option>employee</option>
+                    <option>MO</option>
                 </select>
                 <span>@error('role') {{$message}} @enderror</span>
 
             </div>
             <div >
-                <button type="submit" >Register Doctor</button>
+                <button type="submit" class="btn btn-dark" >Register Doctor</button>
             </div>
             <div >
                 <a href="login">Back To Login</a>
             </div>
+            <div >
+                <a href="doctor_view">View Doctors</a>
+            </div>
+            {{-- @foreach ($doctors as $doctor)
+                <div>{{$doctor['name']}}</div>
+            @endforeach --}}
         </form>
     </div>
 </body>
