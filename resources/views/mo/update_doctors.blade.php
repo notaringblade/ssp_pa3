@@ -9,8 +9,18 @@
    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <script>
+        document.write('<a href="' + document.referrer + '">Go Back</a>');
+      </script>
 </head>
 <body>
+    <div>
+        {{-- <a href="dashboard">Back</a> --}}
+        {{-- <a href="/login">logout</a> --}}
+        <a href="javascript:history.go(-1)">
+
+    </div>
     <Table class="table" border="2" cellpadding="2" cellspacing="3">
         <thead>
             <th>Name</th>
@@ -98,7 +108,7 @@
                         <select name="specialization" >
                             <option  selected > {{$doctor->specialization}} </option>
                             <option  > General </option>
-                            <option  > Orthapedic </option>
+                            <option  > Orthopaedic </option>
                             <option  > Cardiac </option>
                         </select>
                     <span>@error('specialization') {{$message}} @enderror</span>

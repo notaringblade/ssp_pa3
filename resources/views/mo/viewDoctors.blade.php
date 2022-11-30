@@ -55,7 +55,7 @@
                 <td>{{$doctor['highest_qualification']}}</td>
                 <td>{{$doctor['year']}}</td>
                 <td>{{$doctor['specialization']}}</td>
-                <td>patient</td>
+                <td ><a href="assign-patient/{{$doctor->id}}">assign Patients</a></td>
                 <td><a href="update_doctors/{{$doctor->id}}">update</a></td>
                 <td><a href="delete/{{ $doctor->id }}">delete</a></td>
             </tr>

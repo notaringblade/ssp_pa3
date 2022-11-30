@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{{ URL::asset('css/register.css') }}">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>patient registration</title>
     <script src="{{ asset('js/app.js') }}" defer></script>
    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div class="form-structure">
-        <div>
-            <h2> 
-                MO Dashboard
-            </h2>
-            <hr>
-        </div>
-        <h4 >Hello  {{$data->role}} {{$data->name}}!</h4>
-        <form  action="{{route('register-script')}}" method="post">
+    <div >
+        <h2 >Hello Doctor {{$doctor->name}}!</h2>
+        <form class="form"  action="{{route('patient-register-script')}}" method="post">
                 @if(Session::has('success'))
-                <div class="alert alert-success">{{Session::get('success')}}</div>
+                <div class="alert alert-success">
+                    <h1>
+                        {{Session::get('success')}}
+                    </h1>
+                </div>
                 @endif
                 @if(Session::has('fail'))
-                <div class="alert alert-danger">{{Session::get('fail')}}</div>
+                <div class="alert alert-danger">
+                    <h1>
+                        {{Session::get('fail')}}
+                    </h1>
+                </div>
                 @endif
                 @csrf
             <div >
@@ -42,12 +43,12 @@
 
             </div>
             <div >
-                <input  class="input-fields" type="email" value="{{old('email')}}" name="email"  placeholder="Enter email">
-                <span>@error('email') {{$message}} @enderror</span>
+                <input  class="input-fields" type="date" value="{{old('DOB')}}" name="DOB" >
+                <span>@error('DOB') {{$message}} @enderror</span>
             </div>
             <div >
-                <input  class="input-fields" value="{{old('password')}}"  name="password" type="password" placeholder="Enter password">
-                <span>@error('password') {{$message}} @enderror</span>
+                <input  class="input-fields" value="{{old('age')}}"  name="age" type="number" placeholder="Enter age">
+                <span>@error('age') {{$message}} @enderror</span>
 
             </div>
             <div >
@@ -56,26 +57,24 @@
 
             </div>
             <div >
-                <select name="role" class="input-fields">
-                    <option>employee</option>
-                    <option>MO</option>
+                <input  class="input-fields" type="text" value="{{old('address')}}" name="address"  placeholder="Enter adress">
+                <span>@error('address') {{$message}} @enderror</span>
+            </div>
+            <div >
+                <select  name="ailment" class="input-fields">
+                    <option>General</option>
+                    <option>Orthopaedic</option>
+                    <option>Cardiac</option>
                 </select>
-                <span>@error('role') {{$message}} @enderror</span>
-
+                <span>@error('ailment') {{$message}} @enderror</span>
             </div>
             <div >
-                <button type="submit" class="btn btn-dark" >Register Doctor</button>
+                <button type="submit" class="btn btn-dark" >Register Patient</button>
             </div>
             <div >
-                <a href="login">Back To Login</a>
+                {{-- <a href="login">Back To Login</a> --}}
             </div>
-            <div >
-                <a href="doctor_view">View Doctors</a>
-            </div>
-            <div >
-                <a href="patient_registration/{{ $data->id }}">Register Patients</a>
-
-            </div>
+            
             {{-- @foreach ($doctors as $doctor)
                 <div>{{$doctor['name']}}</div>
             @endforeach --}}

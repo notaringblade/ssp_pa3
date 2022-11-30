@@ -11,8 +11,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div>
-        <form action="{{route('login-script')}}" method="post">
+    <div class="container-fluid">
+        <form class="form" action="{{route('login-script')}}" method="post">
             @if(Session::has('success'))
                 <div class="alert">{{Session::get('success')}}</div>
                 @endif
@@ -20,17 +20,20 @@
                 <div class="alert">{{Session::get('fail')}}</div>
                 @endif
             @csrf
-            <div>
-                <input name="email" value="{{old('email')}}" placeholder="enter email" type="email">
+            <div class="mb-3" >
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input class="form-control" name="email" value="{{old('email')}}" placeholder="enter email" type="email">
                 <span>@error('email') {{$message}} @enderror</span>
 
             </div>
-            <div>
-                <input placeholder="enter password" type="password" name="password" value="{{old('password')}}">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+
+                <input class="form-control" placeholder="enter password" type="password" name="password" value="{{old('password')}}">
                 <span>@error('password') {{$message}} @enderror</span>
             </div>
             <div>
-                <button type="submit">Login</button>
+                <button class="btn btn-primary" type="submit">Login</button>
             </div>
         </form>
     </div>

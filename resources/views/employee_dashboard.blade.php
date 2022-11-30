@@ -6,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
     <style>
-        td{
+        table{
             text-align: center
+
         }
         input{
             text-align: center
@@ -17,30 +18,30 @@
    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    
 </head>
 <body>
     <div>
+        <a href="login">Back To Login</a>
+
         <h4> 
-            Dashboard
+           Employee Dashboard
         </h4>
         <hr>
     </div>
     <div>
-        <Table  border="2" cellpadding="2" cellspacing="3">
+        <Table class="table" border="2" cellpadding="2" cellspacing="3">
             <thead>
-                <th>Name</th>
-                <th>Gender</th>
-                <th>email</th>
-                {{-- <th>password</th> --}}
-                <th>contact</th>
-                <th>role</th>
-                <th>highest qualification</th>
-                <th>Institution</th>
-                <th>Pass Year</th>
-                <th>Specialization</th>
-                <th>update</th>
-                {{-- <th>Action</th> --}}
-                <th>Action</th>
+                <tr>
+
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>email</th>
+                    <th>password</th>
+                    <th>contact</th>
+                    <th>role</th>
+                </tr>
             </thead>
             <tbody>
                 <tr>
@@ -60,6 +61,7 @@
                         </div>
                         @endif
                         @csrf
+                        <input name="id" hidden value= {{$data->id}}>
                         <td>
                             <input name="name" value= {{$data->name}}>
                             <span>@error('name') {{$message}} @enderror</span>
@@ -72,18 +74,18 @@
                                 <option  > Female</option>
                                 <option  > Male</option>
                             </select>
-                <span>@error('gender') {{$message}} @enderror</span>
+                            <span>@error('gender') {{$message}} @enderror</span>
 
                         </td>
                         <td>
                             <input name="email" value= {{$data->email}}>
                             <span>@error('email') {{$message}} @enderror</span>
-                            
                         </td>
-                        {{-- 
-                            <input name="name" value=><td>
-                                {{$data->password}}
-                            </td> --}}
+                        <td>
+                            <input name="password" value= {{$data->password}}>
+                            <span>@error('password') {{$message}} @enderror</span>
+
+                        </td>    
                             <td>
                                 <input name="contact" value= {{$data->contact}}>
                                 <span>@error('contact') {{$message}} @enderror</span>
@@ -93,6 +95,21 @@
                                  {{$data->role}}
                                 
                             </td>
+                        </tr>
+                        <tr>
+                        </tbody>
+            <thead>
+                <tr>
+                    <th>highest qualification</th>
+                    <th>Institution</th>
+                    <th>Pass Year</th>
+                    <th>Specialization</th>
+                    <th>update</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            
+                <tbody>
                             <td>
                                 <select name="highest_qualification">
                                     <option selected  > {{$data->highest_qualification}} </option>
@@ -108,11 +125,11 @@
                                 
                             </td>
                             <td>
-                            <input name="year" value= {{$data->year}}>
-                            <span>@error('year') {{$message}} @enderror</span>
-                            
-                        </td>
-                        <td>
+                                <input name="year" value= {{$data->year}}>
+                                <span>@error('year') {{$message}} @enderror</span>
+                                
+                            </td>
+                            <td>
                             <select name="specialization" >
                                 <option  selected > {{$data->specialization}} </option>
                                 <option  > General </option>
@@ -125,13 +142,18 @@
                         <td>
                             <button type="submit">Update</button>
                         </td>
-                         <td>
-                            <a href="login">logout</a>
-                        </td>
+                         
                     </form>
                     </tr>
             </tbody>
         </Table>
+        <div >
+            <a href="patient_registration/{{ $data->id }}">Register Patients</a>
+        </div>
+        <div>
+
+            <a href="view_patients/{{ $data->id }}">View your Patients</a>
+        </div>
     </div>
 </body>
 </html>

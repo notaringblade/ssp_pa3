@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PatientDoctor;
+use App\Models\Patients;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -81,8 +83,11 @@ class CustomAuthController extends Controller
     }
 
     public function mo_dashboard(){
-        
-        return view('auth.register');
+        $data = array();
+        if(Session::has('loginId')){
+            $data = User::where('id','=',Session::get('loginId'))->first();
+        }
+        return view('auth.register', compact('data'));
     }
 
     public function updateDoctors($id)
@@ -140,9 +145,9 @@ class CustomAuthController extends Controller
             'name'=>'required',
             'gender',
             'email' => ["required", Rule::unique('users')->ignore($user)],
-            // 'password'=>'required|min:5|max:15',
+            'password'=>'required|min:5|max:15',
             'contact'=>['required','min:10','max:10', Rule::unique('users')->ignore($user)],
-            // 'role'
+            'role',
             'highest_qualification',
             'institution',
             'year',
@@ -152,8 +157,9 @@ class CustomAuthController extends Controller
         
         $user->name = $request->name;
         $user->gender = $request->gender;
-            $user->email = $request->email;
-            $user->contact = $request->contact;
+        $user->email = $request->email;
+        $user->contact = $request->contact;
+        $user->password = $request->password;
         $user->highest_qualification = $request->highest_qualification;
         $user->institution = $request->institution;
         $user->year = $request->year;
@@ -182,6 +188,103 @@ class CustomAuthController extends Controller
             return back()->with('success', 'deleted');
         }else{
             return back()->with('fail', 'failed to delete');
+        }
+    }
+
+    public function patientRegistration($id)
+    {
+        $fetch = User::where('id','=',$id)->first();
+            if($fetch){
+
+                return view("common.patient_registration", ['doctor' =>  $fetch]);
+            }else{
+
+                return back()->with('fail','Failed');
+            }
+
+    }
+
+    public function patientRegisterScript(Request $request)
+    {
+        $request->validate([
+            'name'=>'required',
+            'age'=>'required',
+            'gender',
+            'DOB'=>'required',
+            'contact'=>'required|min:10|max:10|unique:patients',
+            'address'=>'required|min:5|max:40',
+            'ailment',
+        ]);
+        $patient = new Patients();
+        $patient->name = $request->name;
+        $patient->age = $request->age;
+        $patient->gender = $request->gender;
+        $patient->DOB = $request->DOB;
+        $patient->contact = $request->contact;
+        $patient->address = $request->address;
+        $patient->ailment = $request->ailment;
+        $res = $patient->save();
+
+        if($res){
+            return back()->with('success','registered succesfully');
+        }else{
+            return back()->with('fail','unable to register');
+        }
+    }
+
+    public function assignPatient(Request $request, $id)
+    {
+        $fetch = User::where('id','=',$id)->first();
+        // $data = Patients::where('ailment', '=', $fetch->specialization)->get();
+        $getId = Patients::where('ailment', '=', $fetch->specialization)->get();
+
+        $data = DB::table('patients')
+        ->leftJoin('patient_doctor', 'patient_doctor.pid', '=', 'patients.id')
+        ->where('patients.ailment', $fetch->specialization)
+        // ->where('patient_doctor.pid', '!=', $getId->id)  
+        ->whereNull('patient_doctor.pid')
+        ->select('patients.*')
+        ->get();
+            
+        if($fetch){
+
+            return view("mo.assign_patients", ['doctor' =>  $fetch], ['patients'=> $data]);
+        }else{
+
+            return back()->with('fail','Failed');
+        }
+    }
+    public function assignPatientScript(Request $request)
+    {
+        $assign = new PatientDoctor();
+        $assign->did = $request->did;
+        $assign->pid = $request->pid;
+        $res = $assign->save();
+
+        if($res){
+            return back()->with('success','assigned succesfully');
+        }else{
+            return back()->with('fail','unable to assign');
+        }
+    }
+    public function viewPatients(Request $request, $id)
+    {   
+        $fetch = User::where('id','=',$id)->first();
+
+        $data = DB::table('patients')
+        ->leftJoin('patient_doctor', 'patient_doctor.pid', '=', 'patients.id')
+        ->where('patients.ailment', $fetch->specialization)
+        // ->where('patient_doctor.pid', '!=', $getId->id)  
+        // ->whereNull('patient_doctor.pid')
+        ->select('patients.*')
+        ->get();
+
+        if($fetch){
+
+            return view("view_patients", ['doctor' =>  $fetch], ['patients'=> $data]);
+        }else{
+
+            return back()->with('fail','Failed');
         }
     }
 }
